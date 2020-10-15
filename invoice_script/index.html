@@ -1,0 +1,184 @@
+<html>
+<head>
+<script src="jquery.min.js"></script>
+<script src="fabric.min.js"></script>
+</head>
+<body>
+<canvas id="c" width="1000" height="1300"></canvas>
+<input id="b_accept" type="button" value="Zatwierdź">
+<input id="b_cancel" type="button" value="Anuluj">
+<input id="b_default" type="button" value="Resetuj">
+<script>
+var canvas = new fabric.Canvas('c', {
+        preserveObjectStacking: true
+      }); 
+var scale = 0.35;	  
+	  
+//canvas.setBackgroundImage('skan1.jpeg', canvas.renderAll.bind(canvas));
+fabric.Image.fromURL('skan1.jpeg',function(img){
+	
+	var new_height = img.height * scale; //skalowanie wysokości
+	var new_width = img.width * scale; //skalowanie szerokości
+
+    img.set({
+        width: new_width, // 930,
+        height: new_height, //1289,
+     //   left: 0,
+     //   top: 0,
+     //   originX:  'center',
+     //   originY: 'center',
+        centeredScaling: true,
+        hasControls: false,
+        lockScalingFlip: false,
+		lockMovementX: true, 
+        lockMovementY: true
+    });
+    canvas.add(img);
+	canvas.sendToBack(img);
+});
+
+var invoice_nr = new fabric.Rect({
+	left: (1206*scale),
+	top: (366*scale),
+	strokeDashArray: [10, 10],
+	stroke: 'black',
+	fill: 'rgba(90,90,0,0.2)',
+	width: (437*scale),
+	height: (89*scale)
+	});
+
+var catalog_number = new fabric.Rect({
+	left: (136*scale),
+	top: (1414*scale),
+	angle: -0.5,
+	strokeDashArray: [10, 10],
+	stroke: 'black',
+	fill: 'rgba(90,90,0,0.2)',
+	width: (115*scale),
+	height: (1980*scale)
+	});
+	
+var article_name = new fabric.Rect({
+	left: (270*scale),
+	top: (1414*scale),
+	angle: -0.5,
+	strokeDashArray: [10, 10],
+	stroke: 'black',
+	fill: 'rgba(90,90,0,0.2)',
+	width: (585*scale),
+	height: (1980*scale)
+	});
+	
+var discount_percent = new fabric.Rect({
+	left: (1263*scale),
+	top: (1406*scale),
+	angle: -0.5,
+	strokeDashArray: [10, 10],
+	stroke: 'black',
+	fill: 'rgba(90,90,0,0.2)',
+	width: (108*scale),
+	height: (1980*scale)
+	});
+	
+var tax_percent = new fabric.Rect({
+	left: (1786*scale),
+	top: (1406*scale),
+	angle: -0.7,
+	strokeDashArray: [10, 10],
+	stroke: 'black',
+	fill: 'rgba(90,90,0,0.2)',
+	width: (103*scale),
+	height: (1980*scale)
+	});
+	
+var price_gross_totality = new fabric.Rect({
+	left: (2186*scale),
+	top: (1391*scale),
+	angle: -0.7,
+	strokeDashArray: [10, 10],
+	stroke: 'black',
+	fill: 'rgba(90,90,0,0.2)',
+	width: (250*scale),
+	height: (1980*scale)
+	});
+
+canvas.add(invoice_nr);
+canvas.add(catalog_number);
+canvas.add(article_name);
+canvas.add(discount_percent);
+canvas.add(tax_percent);
+canvas.add(price_gross_totality);
+
+function setCookie(name, val, days) {
+    if (days) {
+        var data = new Date();
+        data.setTime(data.getTime() + (days * 24*60*60*1000));
+        var expires = "; expires="+data.toGMTString();
+    } else {
+        var expires = "";
+    }
+    document.cookie = name + "=" + val + expires + "; path=/";
+}
+
+$("#b_accept").click(function() {
+
+	var real_scale = 1 / scale;
+
+	var invoice_nr_arr = ['invoice_nr', Math.round(invoice_nr.getLeft() * real_scale),
+										Math.round(invoice_nr.getTop() * real_scale), 
+										Math.round(invoice_nr.getHeight() * real_scale), 
+										Math.round(invoice_nr.getWidth() * real_scale)];
+	var json_str_inv = JSON.stringify(invoice_nr_arr);
+	setCookie("invoice_nr", json_str_inv);
+	
+	var catalog_number_arr = ['catalog_number', Math.round(catalog_number.getLeft() * real_scale), 
+												Math.round(catalog_number.getTop() * real_scale), 
+												Math.round(catalog_number.getHeight() * real_scale), 
+												Math.round(catalog_number.getWidth() * real_scale)];
+	var json_str_cat = JSON.stringify(catalog_number_arr);
+	setCookie("catalog_number", json_str_cat);
+	
+	var article_name_arr = ['article_name', Math.round(article_name.getLeft() * real_scale), 
+											Math.round(article_name.getTop() * real_scale), 
+											Math.round(article_name.getHeight() * real_scale), 
+											Math.round(article_name.getWidth() * real_scale)];
+	var json_str_art = JSON.stringify(article_name_arr);
+	setCookie("article_name", json_str_art);
+	
+	var discount_percent_arr = ['discount_percent', Math.round(discount_percent.getLeft() * real_scale), 
+													Math.round(discount_percent.getTop() * real_scale), 
+													Math.round(discount_percent.getHeight() * real_scale), 
+													Math.round(discount_percent.getWidth() * real_scale)];
+	var json_str_dis = JSON.stringify(discount_percent_arr);
+	setCookie("discount_percent", json_str_dis);
+	
+	var tax_percent_arr = ['tax_percent', Math.round(tax_percent.getLeft() * real_scale), 
+										  Math.round(tax_percent.getTop() * real_scale), 
+										  Math.round(tax_percent.getHeight() * real_scale), 
+										  Math.round(tax_percent.getWidth()* real_scale)];
+	var json_str_tax = JSON.stringify(tax_percent_arr);
+	setCookie("tax_percent", json_str_tax);
+	
+	var price_gross_totality_arr = ['price_gross_totality', Math.round(price_gross_totality.getLeft() * real_scale), 
+															Math.round(price_gross_totality.getTop() * real_scale), 
+															Math.round(price_gross_totality.getHeight() * real_scale), 
+															Math.round(price_gross_totality.getWidth() * real_scale)];
+	var json_str_pri = JSON.stringify(price_gross_totality_arr);
+	setCookie("price_gross_totality", json_str_pri);
+	
+	window.location.href='saveData.php';
+});
+
+$("#b_cancel").click(function() {
+	//close the window
+});
+
+$("#b_default").click(function() {
+	//set default posiotion of the fields
+});
+
+canvas.renderAll();
+</script>
+
+</body>
+</html>

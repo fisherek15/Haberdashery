@@ -1,0 +1,32 @@
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+invoice_images/
+invoice_script/fabric.js-1.7.9/skan1a.jpeg
+invoice_script/fabric.js-1.7.9/skan1.jpeg
+invoice_data/faktura_ocr.csv
+
+# Project exclude paths
+/classes/

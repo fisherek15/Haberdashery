@@ -1,0 +1,47 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'pasmanteria'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	//maven {
+	//	url 'http://maven.vaadin.com/vaadin-addons'
+	//}
+}
+
+
+dependencies {
+	compile group: 'net.sourceforge.tess4j', name: 'tess4j', version: '3.3.1'
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('com.vaadin:vaadin-spring-boot-starter:1.1.1')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.12'
+	//compile group: 'com.vaadin.addon', name: 'vaadin-context-menu', version: '0.7.4'
+	runtime('mysql:mysql-connector-java')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compileOnly "org.projectlombok:lombok:1.16.8"
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "com.vaadin:vaadin-bom:7.7.5" //7.7.5
+	}
+}
