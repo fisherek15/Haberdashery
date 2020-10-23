@@ -67,3 +67,7 @@ Podstawowe założenia projektowe zostały osiągnięte, a funkcjonalności zaim
 
 ![Raports view](/images/app-raporty1.PNG)
 
+
+## Schemat bazy danych
+
+![Database schema](/images/db_model.png)
